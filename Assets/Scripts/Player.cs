@@ -62,6 +62,9 @@ public class Player : MonoB {
 				Input.GetAxis("Vertical")
 			));
 
+			if (Input.GetButtonDown("Jump")) {
+				target.jump();
+			}
 		}
 
 	}
