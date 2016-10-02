@@ -54,16 +54,31 @@ public class Player : MonoB {
 
 	[System.Serializable]
 	public struct Controls {
+
+		private bool hasDashed;
 		
 		public void handleControls(Controlable target) {
 
-			target.setMovement(new Vector2(
+			Vector2 movement = new Vector2(
 				Input.GetAxis("Horizontal"),
 				Input.GetAxis("Vertical")
-			));
+			);
+            target.setMovement(movement);
 
 			if (Input.GetButtonDown("Jump")) {
 				target.jump();
+			}
+
+			// check for dash button and make sure movement axis is outside of dead zone
+			if (Input.GetButton("Dash")) {
+				if (movement.sqrMagnitude > 0.2f) {
+					if (!hasDashed)
+						hasDashed = target.dash(movement.normalized);
+				} else {
+					hasDashed = false;
+				}
+			} else {
+				hasDashed = true;
 			}
 		}
 

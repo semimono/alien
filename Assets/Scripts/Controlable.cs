@@ -7,4 +7,8 @@ public abstract class Controlable : MonoB {
 
 	public virtual void jump() { }
 
+	public virtual bool dash(Vector2 direction) {
+		return false;
+	}
+
 }
